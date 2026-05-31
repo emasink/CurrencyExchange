@@ -1,7 +1,5 @@
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using CurrencyExchange.DTOs;
 using CurrencyExchange.Exceptions;
 using CurrencyExchange.Interfaces.Repositories;
@@ -29,7 +27,7 @@ public class ExchangeRepository(HttpClient httpClient) : IExchangeRepository
         }
         catch (HttpRequestException)
         {
-            throw new InternalFlowException($"Request to currency exchange failed");
+            throw new InternalFlowException("Request to currency exchange failed");
         }
         
     }

@@ -1,5 +1,5 @@
-using CurrencyExchange.Interfaces;
 using CurrencyExchange.Interfaces.Repositories;
+using CurrencyExchange.Interfaces.Services;
 
 namespace CurrencyExchange.Services;
 

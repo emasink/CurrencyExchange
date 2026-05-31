@@ -1,6 +1,6 @@
-using CurrencyExchange;
 using CurrencyExchange.Exceptions;
-using CurrencyExchange.Interfaces;
+using CurrencyExchange.Extensions;
+using CurrencyExchange.Interfaces.Parsers;
 using CurrencyExchange.Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,9 +21,9 @@ while (true)
     
     try
     {
-        HandleExit(input);
+        HandleExit(input!);
 
-        await ProcessExchangeRequest(input);
+        await ProcessExchangeRequest(input!);
     }
     catch (StopApplicationException ex)
     {
@@ -37,20 +37,20 @@ while (true)
 }
 void HandleExit(string input)
 {
-    if (input.Equals("EXIT", StringComparison.InvariantCultureIgnoreCase))
+    if (string.Equals(input, "exit", StringComparison.OrdinalIgnoreCase))
     {
         throw new StopApplicationException("ShuttingDown");
     }
 }
 
-async Task ProcessExchangeRequest( string s)
+async Task ProcessExchangeRequest(string s)
 {
     var serviceProvider = services.BuildServiceProvider();
 
     var consoleParser = serviceProvider.GetService<IConsoleParser>();
     var exchangeService = serviceProvider.GetService<IExchangeService>();
     
-    var request = consoleParser!.Parse(s!);
+    var request = consoleParser!.Parse(s);
     var answer = await exchangeService!.ExchangeCurrenciesAsync(request);
     
     Console.WriteLine(answer);

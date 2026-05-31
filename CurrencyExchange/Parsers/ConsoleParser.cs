@@ -1,8 +1,8 @@
 using CurrencyExchange.Exceptions;
-using CurrencyExchange.Interfaces;
+using CurrencyExchange.Interfaces.Parsers;
 using CurrencyExchange.Requests;
 
-namespace CurrencyExchange;
+namespace CurrencyExchange.Parsers;
 
 public class ConsoleParser : IConsoleParser
 {

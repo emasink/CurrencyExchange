@@ -1,6 +1,6 @@
 using CurrencyExchange.Requests;
 
-namespace CurrencyExchange.Interfaces;
+namespace CurrencyExchange.Interfaces.Parsers;
 
 public interface IConsoleParser
 {

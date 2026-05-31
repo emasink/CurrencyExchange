@@ -1,14 +1,13 @@
 ﻿using CurrencyExchange.Exceptions;
-using CurrencyExchange.Interfaces;
+using CurrencyExchange.Parsers;
 using CurrencyExchange.Requests;
 using FluentAssertions;
-using Xunit;
 
 namespace CurrencyExchange.UnitTests;
 
 public class ConsoleParserTests
 {
-    private readonly IConsoleParser _parser = new ConsoleParser();
+    private readonly ConsoleParser _parser = new();
     
     [Theory]
     [InlineData("EUR/EUR 1.1", 1.1, "EUR", "EUR")]

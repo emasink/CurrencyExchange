@@ -1,15 +1,16 @@
-using CurrencyExchange.Interfaces;
+using CurrencyExchange.Interfaces.Parsers;
 using CurrencyExchange.Interfaces.Repositories;
 using CurrencyExchange.Interfaces.Services;
 using CurrencyExchange.Interfaces.Validators;
+using CurrencyExchange.Parsers;
 using CurrencyExchange.Repositories;
 using CurrencyExchange.Services;
 using CurrencyExchange.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CurrencyExchange;
+namespace CurrencyExchange.Extensions;
 
-public static class ServiceCollectionBuilder
+public static class ServiceCollectionBuilderExtension
 {
     public static void AddServices(this ServiceCollection services)
     {

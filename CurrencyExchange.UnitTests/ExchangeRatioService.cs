@@ -1,9 +1,7 @@
-using System.Threading.Tasks;
 using CurrencyExchange.Interfaces.Repositories;
 using CurrencyExchange.Services;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
 
 namespace CurrencyExchange.UnitTests;
 

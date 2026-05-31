@@ -20,6 +20,6 @@ public class CurrencyValidator(IExchangeRepository exchangeRepository) : ICurren
 
     private static bool IsBaseCurrency(string currencyLiteral)
     {
-        return currencyLiteral.Equals("DKK", StringComparison.InvariantCultureIgnoreCase);
+        return string.Equals(currencyLiteral, "DKK", StringComparison.OrdinalIgnoreCase);
     }
 }

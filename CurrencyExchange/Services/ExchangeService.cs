@@ -1,5 +1,4 @@
 using CurrencyExchange.Exceptions;
-using CurrencyExchange.Interfaces;
 using CurrencyExchange.Interfaces.Services;
 using CurrencyExchange.Interfaces.Validators;
 using CurrencyExchange.Requests;

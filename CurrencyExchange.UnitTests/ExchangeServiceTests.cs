@@ -1,12 +1,10 @@
-using System.Threading.Tasks;
 using CurrencyExchange.Exceptions;
-using CurrencyExchange.Interfaces;
+using CurrencyExchange.Interfaces.Services;
 using CurrencyExchange.Interfaces.Validators;
 using CurrencyExchange.Requests;
 using CurrencyExchange.Services;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
 
 namespace CurrencyExchange.UnitTests;
 

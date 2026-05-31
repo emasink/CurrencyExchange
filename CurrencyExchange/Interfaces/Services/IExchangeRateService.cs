@@ -1,4 +1,4 @@
-namespace CurrencyExchange.Interfaces;
+namespace CurrencyExchange.Interfaces.Services;
 
 public interface IExchangeRateService
 {

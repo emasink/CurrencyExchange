@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CurrencyExchange.DTOs;
 using CurrencyExchange.Interfaces.Repositories;
 
 namespace CurrencyExchange.Repositories;
@@ -13,7 +11,7 @@ public class DummyExchangeRepository : IExchangeRepository
 
     private static Dictionary<string, decimal> InitialiseExchangeRates()
     {
-        var rates =  new List<ExchangeRate> {
+        var rates =  new List<ExchangeRateDto> {
             new("EUR", 743.94m),
             new("USD", 663.11m),
             new("GBP", 852.85m),

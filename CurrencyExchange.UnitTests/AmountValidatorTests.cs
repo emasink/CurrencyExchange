@@ -1,6 +1,5 @@
 using CurrencyExchange.Validators;
 using FluentAssertions;
-using Xunit;
 
 namespace CurrencyExchange.UnitTests;
 
