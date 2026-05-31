@@ -29,7 +29,5 @@ public static class ServiceCollectionBuilderExtension
         });
 
         services.Decorate<IExchangeRepository, CachedExchangeRepository>();
-
     }
-    
 }

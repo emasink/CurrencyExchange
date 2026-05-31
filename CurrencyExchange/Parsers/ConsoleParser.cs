@@ -22,6 +22,7 @@ public class ConsoleParser : IConsoleParser
         if(slashSplitCommand.Length != 2) throw new InvalidInputException($"Input '{input}' does not follow <CURRENCY PAIR> <AMOUNT> format");
         
         var sourceCurrency = slashSplitCommand[0];
+        
         return string.IsNullOrEmpty(sourceCurrency)
             ? throw new InvalidInputException("Couldn't parse source currency")
             : sourceCurrency;

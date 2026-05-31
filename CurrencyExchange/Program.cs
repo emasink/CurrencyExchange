@@ -35,6 +35,7 @@ while (true)
         Console.WriteLine(ex.Message);
     }
 }
+
 void HandleExit(string input)
 {
     if (string.Equals(input, "exit", StringComparison.OrdinalIgnoreCase))

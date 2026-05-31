@@ -7,10 +7,7 @@ public class CurrencyValidator(IExchangeRepository exchangeRepository) : ICurren
 {
     public async Task<bool> IsValidCurrencyAsync(string currencyLiteral)
     {
-        if (IsBaseCurrency(currencyLiteral)) 
-            return true;
-
-        return await IsExchangeRateAvailableForGivenCurrency(currencyLiteral);
+        return IsBaseCurrency(currencyLiteral) || await IsExchangeRateAvailableForGivenCurrency(currencyLiteral);
     }
 
     private async Task<bool> IsExchangeRateAvailableForGivenCurrency(string currencyLiteral)
