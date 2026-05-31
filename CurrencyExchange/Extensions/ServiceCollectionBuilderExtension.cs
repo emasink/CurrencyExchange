@@ -1,3 +1,4 @@
+using CurrencyExchange.Decorators;
 using CurrencyExchange.Interfaces.Parsers;
 using CurrencyExchange.Interfaces.Repositories;
 using CurrencyExchange.Interfaces.Services;
@@ -14,6 +15,7 @@ public static class ServiceCollectionBuilderExtension
 {
     public static void AddServices(this ServiceCollection services)
     {
+        services.AddMemoryCache();
         services.AddScoped<IConsoleParser, ConsoleParser>();
         services.AddScoped<IExchangeService, ExchangeService>();
         services.AddScoped<ICurrencyValidator, CurrencyValidator>();
@@ -25,6 +27,9 @@ public static class ServiceCollectionBuilderExtension
         {
             client.BaseAddress = new Uri("https://api.frankfurter.dev/v2/");
         });
+
+        services.Decorate<IExchangeRepository, CachedExchangeRepository>();
+
     }
     
 }
