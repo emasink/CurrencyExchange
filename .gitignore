@@ -1,0 +1,75 @@
+```gitignore
+# Build results
+bin/
+obj/
+*/bin/
+*/obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+
+# Rider
+.idea/
+*.sln.DotSettings.user
+*.sln.iml
+
+# ReSharper / Rider settings
+*.sln.DotSettings.user
+
+# Debug
+*.pdb
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Test results
+TestResults/
+
+# Coverage
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Visual Studio
+.vs/
+
+# Generated files
+Generated/
+
+# Publish output
+publish/
+
+# Temporary files
+*.tmp
+*.temp
+
+# JetBrains local history
+.localhistory/
+
+# Dotnet tools
+.dotnet/tools/.store/
+
+# Environment files
+.env
+.env.*
+
+# Azure Functions (if ever added)
+local.settings.json
+
+# BenchmarkDotNet
+BenchmarkDotNet.Artifacts/
+
+# Node (if frontend tooling is added later)
+node_modules/
+```

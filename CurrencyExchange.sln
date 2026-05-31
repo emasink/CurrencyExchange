@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyExchange", "CurrencyExchange\CurrencyExchange.csproj", "{66C2B675-3DEC-4D65-9026-C6190FC76369}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{941EDCA3-A332-4DF4-ABF5-E8BAC2D89666}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyExchange.UnitTests", "CurrencyExchange.UnitTests\CurrencyExchange.UnitTests.csproj", "{54ABB7A8-794E-4F32-BE9E-696C476AE3F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66C2B675-3DEC-4D65-9026-C6190FC76369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C2B675-3DEC-4D65-9026-C6190FC76369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C2B675-3DEC-4D65-9026-C6190FC76369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C2B675-3DEC-4D65-9026-C6190FC76369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54ABB7A8-794E-4F32-BE9E-696C476AE3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54ABB7A8-794E-4F32-BE9E-696C476AE3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54ABB7A8-794E-4F32-BE9E-696C476AE3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54ABB7A8-794E-4F32-BE9E-696C476AE3F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54ABB7A8-794E-4F32-BE9E-696C476AE3F4} = {941EDCA3-A332-4DF4-ABF5-E8BAC2D89666}
+	EndGlobalSection
+EndGlobal
