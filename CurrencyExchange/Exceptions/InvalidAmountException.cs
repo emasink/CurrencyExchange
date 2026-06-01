@@ -1,3 +1,3 @@
 namespace CurrencyExchange.Exceptions;
 
-public class InvalidAmountException(string message) : Exception(message);
+public class InvalidAmountException(string message) : InvalidInputException(message);

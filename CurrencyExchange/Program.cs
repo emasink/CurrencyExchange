@@ -8,6 +8,8 @@ var services = new ServiceCollection();
 services.AddServices();
 var serviceProvider = services.BuildServiceProvider();
 
+var consoleParser = serviceProvider.GetRequiredService<IConsoleParser>();
+var exchangeService = serviceProvider.GetRequiredService<IExchangeService>();
 
 Console.WriteLine("Exchange tool\n" +
                   "Provide currencies and amount in the following format:\n" +
@@ -19,10 +21,11 @@ while (true)
 {
     var input = Console.ReadLine();
 
+    if (string.IsNullOrWhiteSpace(input)) continue;
+    HandleExit(input);
+
     try
     {
-        HandleExit(input!);
-
         await ProcessExchangeRequest(input!);
     }
     catch (StopApplicationException ex)
@@ -30,11 +33,20 @@ while (true)
         Console.WriteLine(ex.Message);
         return;
     }
-    catch (Exception ex)
+    catch (Exception exception) when (
+        exception is InvalidInputException
+            or RateNotFoundException
+            or InternalFlowException)
     {
-        Console.WriteLine(ex.Message);
+        Console.WriteLine(exception.Message);
+    }
+    catch (Exception)
+    {
+        Console.WriteLine("An unknown error occurred.");
     }
 }
+
+return;
 
 void HandleExit(string input)
 {
@@ -46,11 +58,8 @@ void HandleExit(string input)
 
 async Task ProcessExchangeRequest(string s)
 {
-    var consoleParser = serviceProvider.GetService<IConsoleParser>();
-    var exchangeService = serviceProvider.GetService<IExchangeService>();
-
-    var request = consoleParser!.Parse(s);
-    var answer = await exchangeService!.ExchangeCurrenciesAsync(request);
+    var request = consoleParser.Parse(s);
+    var answer = await exchangeService.ExchangeCurrenciesAsync(request);
 
     Console.WriteLine(answer);
 }
