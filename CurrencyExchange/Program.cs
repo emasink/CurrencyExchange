@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection();
 services.AddServices();
-var serviceProvider = services.BuildServiceProvider();
 
+var serviceProvider = services.BuildServiceProvider();
 var consoleParser = serviceProvider.GetRequiredService<IConsoleParser>();
 var exchangeService = serviceProvider.GetRequiredService<IExchangeService>();
 
