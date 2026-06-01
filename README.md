@@ -67,12 +67,6 @@ Uses the Frankfurter API to retrieve current exchange rates.
 
 Provides predefined in-memory exchange rates.
 
-Responsibilities:
-
-* No external dependencies.
-* Deterministic behavior.
-* Useful for testing and development.
-
 Example rates:
 
 ```csharp
@@ -92,7 +86,7 @@ services.AddHttpClient<IExchangeRepository, ExchangeRepository>(client =>
 });
 ```
 
-or comment it out and uncomment to  
+or comment it out and uncomment following lines to  
 ### Use dummy repository
 
 ```csharp
