@@ -18,8 +18,7 @@ public static class ServiceCollectionBuilderExtension
         services.AddMemoryCache();
         services.AddScoped<IConsoleParser, ConsoleParser>();
         services.AddScoped<IExchangeService, ExchangeService>();
-        services.AddScoped<ICurrencyValidator, CurrencyValidator>();
-        services.AddScoped<IAmountValidator, AmountValidator>();
+        services.AddScoped<IExchangeRequestValidator, ExchangeRequestValidator>();
         services.AddScoped<IExchangeRateService, ExchangeRateService>();
 
         // services.AddScoped<IExchangeRepository, DummyExchangeRepository>();

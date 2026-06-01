@@ -6,12 +6,13 @@ namespace CurrencyExchange.Repositories;
 public class DummyExchangeRepository : IExchangeRepository
 {
     private const decimal ExchangeTableCoefficient = 100;
-    
+
     private static readonly Dictionary<string, decimal> ExchangeRates = InitialiseExchangeRates();
 
     private static Dictionary<string, decimal> InitialiseExchangeRates()
     {
-        var rates =  new List<ExchangeRateDto> {
+        var rates = new List<ExchangeRateDto>
+        {
             new("EUR", 743.94m),
             new("USD", 663.11m),
             new("GBP", 852.85m),
@@ -23,11 +24,11 @@ public class DummyExchangeRepository : IExchangeRepository
 
         return rates.ToDictionary(x => x.Currency, x => x.Rate / ExchangeTableCoefficient);
     }
-    
-    public async Task<decimal?> GetRateAsync(string toCurrency)
+
+    public async Task<decimal?> GetRateAsync(string currency)
     {
-        return ExchangeRates.TryGetValue(toCurrency, out var exchangeRate) 
-            ? await Task.FromResult(exchangeRate) 
+        return ExchangeRates.TryGetValue(currency, out var exchangeRate)
+            ? await Task.FromResult(exchangeRate)
             : null;
     }
 }

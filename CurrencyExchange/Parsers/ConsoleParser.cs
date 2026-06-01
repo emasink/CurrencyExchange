@@ -6,66 +6,51 @@ namespace CurrencyExchange.Parsers;
 
 public class ConsoleParser : IConsoleParser
 {
+    private const string InvalidFormatMessage = $"Input does not follow <CURRENCY PAIR> <AMOUNT> format";
+
     public ExchangeRequest Parse(string input)
     {
-        var sourceCurrency = GetSourceCurrency(input);
-        var targetCurrency = GetTargetCurrency(input);
-        
-        var amount = GetAmount(input);
-        
+        var (sourceCurrency, targetCurrencyWithAmount) = GetSourceCurrency(input);
+        var (targetCurrency, amountLiteral) = GetTargetCurrency(targetCurrencyWithAmount);
+
+        var amount = GetAmount(amountLiteral);
+
         return new ExchangeRequest(amount, sourceCurrency, targetCurrency);
     }
 
-    private static string GetSourceCurrency(string input)
+    private static (string, string) GetSourceCurrency(string input)
     {
-        var slashSplitCommand = input.Split("/", StringSplitOptions.TrimEntries);
-        if(slashSplitCommand.Length != 2) throw new InvalidInputException($"Input '{input}' does not follow <CURRENCY PAIR> <AMOUNT> format");
-        
+        var slashSplitCommand = input.Split("/");
+        if (slashSplitCommand.Length != 2)
+            throw new InvalidInputException(InvalidFormatMessage);
+
         var sourceCurrency = slashSplitCommand[0];
-        
-        return string.IsNullOrEmpty(sourceCurrency)
+
+        return string.IsNullOrEmpty(sourceCurrency) || sourceCurrency.Any(char.IsWhiteSpace)
             ? throw new InvalidInputException("Couldn't parse source currency")
-            : sourceCurrency;
+            : (sourceCurrency, slashSplitCommand[1]);
     }
-    
-    private static string GetTargetCurrency(string input)
+
+    private static (string, string) GetTargetCurrency(string targetCurrencyWithAmount)
+    {
+        var targetCurrencyAndAmount = targetCurrencyWithAmount.Split(" ");
+
+        if (targetCurrencyAndAmount.Length != 2)
+        {
+            throw new InvalidInputException(InvalidFormatMessage);
+        }
+
+        var targetCurrency = targetCurrencyAndAmount[0];
+        return string.IsNullOrEmpty(targetCurrency) || targetCurrency.Any(char.IsWhiteSpace)
+            ? throw new InvalidInputException("Couldn't parse target currency")
+            : (targetCurrency, targetCurrencyAndAmount[1]);
+    }
+
+    private static decimal GetAmount(string amountLiteral)
     {
         try
         {
-            var targetCurrency =  input
-                .Split("/")[1]
-                .Split(" ")[0];
-            
-            return string.IsNullOrEmpty(targetCurrency)
-                ? throw new InvalidInputException("Couldn't parse source currency")
-                : targetCurrency;
-        }
-        catch (Exception )
-        {
-            throw new InvalidInputException("Couldn't parse target currency");
-        }
-    }
-    
-    private static decimal GetAmount(string input)
-    {
-        try
-        {
-            var currencyAndAmountList = input
-                .Split('/', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)[1]
-                .Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-            if (currencyAndAmountList.Length != 2)
-            {
-                throw new InvalidInputException($"Input '{input}' does not follow <CURRENCY PAIR> <AMOUNT> format");
-            }
-            
-            var amountLiteral = currencyAndAmountList[1];
-
             return decimal.Parse(amountLiteral);
-        }
-        catch (InvalidInputException)
-        {
-            throw;
         }
         catch (Exception)
         {

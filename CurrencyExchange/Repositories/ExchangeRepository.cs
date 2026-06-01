@@ -8,28 +8,29 @@ namespace CurrencyExchange.Repositories;
 
 public class ExchangeRepository(HttpClient httpClient) : IExchangeRepository
 {
-    public async Task<decimal?> GetRateAsync(string toCurrency)
+    private const string BaseCurrency = "DKK";
+
+    public async Task<decimal?> GetRateAsync(string currency)
     {
         try
         {
-            var result = await httpClient.GetAsync($"rates?base={toCurrency}&quotes=DKK");
+            var result = await httpClient.GetAsync($"rates?base={currency}&quotes={BaseCurrency}");
 
             if (IsUnprocessableEntity(result))
             {
                 return null;
             }
-        
+
             result.EnsureSuccessStatusCode();
-            
+
             var rates = await result.Content.ReadFromJsonAsync<FrankfurterRateDto[]>();
-    
+
             return rates?.Length > 0 ? rates[0].Rate : null;
         }
         catch (HttpRequestException)
         {
             throw new InternalFlowException("Request to currency exchange failed");
         }
-        
     }
 
     private static bool IsUnprocessableEntity(HttpResponseMessage result)

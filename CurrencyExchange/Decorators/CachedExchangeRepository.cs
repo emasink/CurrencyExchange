@@ -7,18 +7,21 @@ public class CachedExchangeRepository(
     IExchangeRepository exchangeRepository,
     IMemoryCache cache) : IExchangeRepository
 {
-    public async Task<decimal?> GetRateAsync(string toCurrency)
+    public async Task<decimal?> GetRateAsync(string currency)
     {
-        var key = $"rate:{toCurrency}";
+        var key = $"rate:{currency}";
 
         if (cache.TryGetValue(key, out decimal? rate))
         {
             return rate;
         }
 
-        rate = await exchangeRepository.GetRateAsync(toCurrency);
+        rate = await exchangeRepository.GetRateAsync(currency);
 
-        cache.Set(key, rate, TimeSpan.FromMinutes(10));
+        if (rate != null)
+        {
+            cache.Set(key, rate, TimeSpan.FromMinutes(10));
+        }
 
         return rate;
     }

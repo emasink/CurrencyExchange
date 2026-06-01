@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection();
 services.AddServices();
-
+var serviceProvider = services.BuildServiceProvider();
 
 
 Console.WriteLine("Exchange tool\n" +
@@ -18,7 +18,7 @@ Console.WriteLine("Exchange tool\n" +
 while (true)
 {
     var input = Console.ReadLine();
-    
+
     try
     {
         HandleExit(input!);
@@ -46,13 +46,11 @@ void HandleExit(string input)
 
 async Task ProcessExchangeRequest(string s)
 {
-    var serviceProvider = services.BuildServiceProvider();
-
     var consoleParser = serviceProvider.GetService<IConsoleParser>();
     var exchangeService = serviceProvider.GetService<IExchangeService>();
-    
+
     var request = consoleParser!.Parse(s);
     var answer = await exchangeService!.ExchangeCurrenciesAsync(request);
-    
+
     Console.WriteLine(answer);
 }

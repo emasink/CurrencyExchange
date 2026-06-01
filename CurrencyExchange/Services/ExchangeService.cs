@@ -6,37 +6,34 @@ using CurrencyExchange.Requests;
 namespace CurrencyExchange.Services;
 
 public class ExchangeService(
-    ICurrencyValidator currencyValidator,
-    IAmountValidator amountValidator,
-    IExchangeRateService rateService) 
+    IExchangeRequestValidator exchangeRequestValidator,
+    IExchangeRateService rateService)
     : IExchangeService
 {
     public async Task<decimal> ExchangeCurrenciesAsync(ExchangeRequest request)
     {
-        await ValidateCurrencies(request);
-        ValidateAmount(request);
-        
+        ValidateRequest(request);
+
         var exchangeRatio = await rateService.GetExchangeRateAsync(request.SourceCurrency, request.TargetCurrency);
-        
-        return exchangeRatio *  request.Amount;
+
+        return exchangeRatio * request.Amount;
     }
-    
-    private async Task ValidateCurrencies(ExchangeRequest request)
+
+    private void ValidateRequest(ExchangeRequest request)
     {
-        if (! await currencyValidator.IsValidCurrencyAsync(request.SourceCurrency))
+        if (!exchangeRequestValidator.IsValidCurrencyFormat(request.SourceCurrency))
         {
-            throw new InvalidInputException($"Currency {request.SourceCurrency} is not valid ISO currency literal");
+            throw new InvalidCurrencyException(request.SourceCurrency);
         }
 
-        if (! await currencyValidator.IsValidCurrencyAsync(request.TargetCurrency))
+        if (!exchangeRequestValidator.IsValidCurrencyFormat(request.TargetCurrency))
         {
-            throw new InvalidInputException($"Currency {request.TargetCurrency} is not valid ISO currency literal");
+            throw new InvalidCurrencyException(request.TargetCurrency);
         }
-    }
-    
-    private void ValidateAmount(ExchangeRequest request)
-    {
-        if(!amountValidator.IsValidAmount(request.Amount))
-            throw new InvalidInputException($"Amount {request.Amount} is invalid, must be positive decimal number");
+
+        if (0 >= request.Amount)
+        {
+            throw new InvalidAmountException("Amount must be positive");
+        }
     }
 }
